@@ -24,6 +24,9 @@ public:
 		int tmp=0;
 		queue<int> q;
 		bool *visited = new bool[V];
+
+		if ( s == dst) return true;
+
 		for (int i = 0; i < V; i++)
 		        visited[i] = false;
 
@@ -35,19 +38,16 @@ public:
 			visited[tmp]=true;
 			q.pop();
 			if (tmp == dst){
-	 			for(;;){
-					if( !q.empty()) {
-						tmp = q.front(); q.pop();
-						cout <<  " " << tmp;
-					}
-					else break;
-				}
+	 			for(;;){ if( !q.empty()) { tmp = q.front(); q.pop(); cout <<  " " << tmp; } else break; }
 				return true;
 			}
 			for( auto it = graph[tmp].begin(); it < graph[tmp].end(); it++){
-				if (visited[*it] != true) q.push(*it);
+				if( visited[*it] != true ){
+					visited[*it] = true;
+					q.push(*it);
+				}
 			}
-		int k=0; cin >> k;
+		// int k=0; cin >> k;
 		}
 		return false;
 	}
@@ -87,7 +87,7 @@ int main(){
         g.addEdge(5, 1);
         g.addEdge(6, 1);
 
-	cout << endl << g.test_reachability(0, 6) << endl;
+	cout << endl << g.test_reachability(0, 2) << endl;
 /*
 	Graph g(4);
 	g.addEdge(0, 1);
